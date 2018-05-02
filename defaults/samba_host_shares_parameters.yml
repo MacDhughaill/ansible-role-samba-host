@@ -1,0 +1,43 @@
+---
+# Visit this link for information on `smb.conf` parameters.
+# https://www.samba.org/samba/docs/current/man-html/smb.conf.5.html
+samba_host_shares:
+  - name: # Used to fill the `path` parameter.
+    acl_group_control:
+    acl_map_full_control:
+    allocation_roundup_size:
+    browseable: # Set to "yes" automatically if not defined.
+    case_sensitive:
+    comment:
+    create_mask:
+    default_case:
+    delete_readonly:
+    delete_veto_files:
+    directory_mask:
+    dos_filemode:
+    fake_directory_create_times:
+    force_create_mode:
+    force_directory_mode:
+    force_group:
+    force_user:
+    guest_ok:
+    guest_only:
+    hide_dot_files:
+    hide_files:
+    hosts_allow:
+    hosts_deny:
+    inherit_acls:
+    inherit_owner:
+    inherit_permissions:
+    invalid_users:
+    mangled_names:
+    mangling_char:
+    preserve_case:
+    read_list:
+    read_only:
+    short_preserve_case:
+    strict_allocate:
+    valid_users:
+    veto_files:
+    writeable:
+    write_list:

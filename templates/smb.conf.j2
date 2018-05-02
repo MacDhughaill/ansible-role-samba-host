@@ -1,0 +1,312 @@
+# {{ ansible_managed }}
+
+[global]
+# Basics
+server role = standalone
+netbios name = {{ samba_host_smb_conf.netbios_name | default(ansible_hostname) }}
+{% if samba_host_smb_conf.netbios_aliases is defined %}
+netbios aliases = {{ samba_host_smb_conf.netbios_aliases }}
+{% endif %}
+workgroup = {{ samba_host_smb_conf.workgroup | default('WORKGROUP') }}
+name resolve order = bcast host
+unix password sync = no
+{% if samba_host_smb_conf.auto_services is defined %}
+auto services = {{ samba_host_smb_conf.auto_services }}
+{% endif %}
+{% if samba_host_smb_conf.dns_forwarder is defined %}
+dns forwarder = {{ samba_host_smb_conf.dns_forwarder }}
+{% endif %}
+{% if samba_host_smb_conf.panic_action is defined %}
+panic action = {{ samba_host_smb_conf.panic_action }}
+{% endif %}
+{% if samba_host_smb_conf.remote_announce is defined %}
+remote announce = {{ samba_host_smb_conf.remote_announce }}
+{% endif %}
+{% if samba_host_smb_conf.remote_browse_sync is defined %}
+remote browse sync = {{ samba_host_smb_conf.remote_browse_sync }}
+{% endif %}
+{% if samba_host_smb_conf.server_string is defined %}
+server string = {{ samba_host_smb_conf.server_string }}
+{% endif %}
+{% if samba_host_smb_conf.username_map is defined %}
+username map = {{ samba_host_smb_conf.username_map }}
+{% endif %}
+
+# Interfaces
+{% if samba_host_smb_conf.bind_interfaces_only is defined %}
+bind interfaces only = {{ samba_host_smb_conf.bind_interfaces_only }}
+{% endif %}
+{% if samba_host_smb_conf.interfaces is defined %}
+interfaces = {{ samba_host_smb_conf.interfaces }}
+{% endif %}
+
+# Protocols
+{% if samba_host_smb_conf.client_max_protocol is defined %}
+client max protocol = {{ samba_host_smb_conf.client_max_protocol }}
+{% endif %}
+{% if samba_host_smb_conf.client_min_protocol is defined %}
+client min protocol = {{ samba_host_smb_conf.client_min_protocol }}
+{% endif %}
+{% if samba_host_smb_conf.server_max_protocol is defined %}
+server max protocol = {{ samba_host_smb_conf.server_max_protocol }}
+{% endif %}
+{% if samba_host_smb_conf.server_min_protocol is defined %}
+server min protocol = {{ samba_host_smb_conf.server_min_protocol }}
+{% endif %}
+
+# Authentication
+security = user
+passdb backend = tdbsam
+map to guest = {{ samba_host_smb_conf.map_to_guest | default('Bad User') }}
+{% if samba_host_smb_conf.guest_account is defined %}
+guest account = {{ samba_host_smb_conf.guest_account }}
+{% endif %}
+
+# NetBIOS Master Browser
+{% if samba_host_smb_conf.local_master is defined %}
+local master = {{ samba_host_smb_conf.local_master }}
+{% endif %}
+{% if samba_host_smb_conf.domain_master is defined %}
+domain master = {{ samba_host_smb_conf.domain_master }}
+{% endif %}
+{% if samba_host_smb_conf.preferred_master is defined %}
+preferred master = {{ samba_host_smb_conf.preferred_master }}
+{% endif %}
+{% if samba_host_smb_conf.os_level is defined %}
+os level = {{ samba_host_smb_conf.os_level }}
+{% endif %}
+{% if samba_host_smb_conf.dns_proxy is defined %}
+dns proxy = {{ samba_host_smb_conf.dns_proxy }}
+{% endif %}
+
+# Printers
+load printers = no
+
+# Global Share Parameters
+{% if samba_host_smb_conf.global_acl_group_control is defined %}
+acl group control = {{ samba_host_smb_conf.global_acl_group_control }}
+{% endif %}
+{% if samba_host_smb_conf.global_acl_map_full_control is defined %}
+acl map full control = {{ samba_host_smb_conf.global_acl_map_full_control }}
+{% endif %}
+{% if samba_host_smb_conf.global_allocation_roundup_size is defined %}
+allocation roundup size = {{ samba_host_smb_conf.global_allocation_roundup_size }}
+{% endif %}
+{% if samba_host_smb_conf.global_case_sensitive is defined %}
+case sensitive = {{ samba_host_smb_conf.global_case_sensitive }}
+{% endif %}
+{% if samba_host_smb_conf.global_comment is defined %}
+comment = {{ samba_host_smb_conf.global_comment }}
+{% endif %}
+{% if samba_host_smb_conf.global_create_mask is defined %}
+create mask = {{ samba_host_smb_conf.global_create_mask }}
+{% endif %}
+{% if samba_host_smb_conf.global_default_case is defined %}
+default case = {{ samba_host_smb_conf.global_default_case }}
+{% endif %}
+{% if samba_host_smb_conf.global_delete_readonly is defined %}
+delete readonly = {{ samba_host_smb_conf.global_delete_readonly }}
+{% endif %}
+{% if samba_host_smb_conf.global_delete_veto_files is defined %}
+delete veto files = {{ samba_host_smb_conf.global_delete_veto_files }}
+{% endif %}
+{% if samba_host_smb_conf.global_directory_mask is defined %}
+directory mask = {{ samba_host_smb_conf.global_directory_mask }}
+{% endif %}
+{% if samba_host_smb_conf.global_dos_filemode is defined %}
+dos filemode = {{ samba_host_smb_conf.global_dos_filemode }}
+{% endif %}
+{% if samba_host_smb_conf.global_fake_directory_create_times is defined %}
+fake directory create times = {{ samba_host_smb_conf.global_fake_directory_create_times }}
+{% endif %}
+{% if samba_host_smb_conf.global_force_create_mode is defined %}
+force create mode = {{ samba_host_smb_conf.global_force_create_mode }}
+{% endif %}
+{% if samba_host_smb_conf.global_force_directory_mode is defined %}
+force directory mode = {{ samba_host_smb_conf.global_force_directory_mode }}
+{% endif %}
+{% if samba_host_smb_conf.global_force_group is defined %}
+force group = {{ samba_host_smb_conf.global_force_group }}
+{% endif %}
+{% if samba_host_smb_conf.global_force_user is defined %}
+force user = {{ samba_host_smb_conf.global_force_user }}
+{% endif %}
+{% if samba_host_smb_conf.global_guest_ok is defined %}
+guest ok = {{ samba_host_smb_conf.global_guest_ok }}
+{% endif %}
+{% if samba_host_smb_conf.global_guest_only is defined %}
+guest only = {{ samba_host_smb_conf.global_guest_only }}
+{% endif %}
+{% if samba_host_smb_conf.global_hide_dot_files is defined %}
+hide dot files = {{ samba_host_smb_conf.global_hide_dot_files }}
+{% endif %}
+{% if samba_host_smb_conf.global_hide_files is defined %}
+hide files = {{ samba_host_smb_conf.global_hide_files }}
+{% endif %}
+{% if samba_host_smb_conf.global_hosts_allow is defined %}
+hosts allow = {{ samba_host_smb_conf.global_hosts_allow }}
+{% endif %}
+{% if samba_host_smb_conf.global_hosts_deny is defined %}
+hosts deny = {{ samba_host_smb_conf.global_hosts_deny }}
+{% endif %}
+{% if samba_host_smb_conf.global_inherit_owner is defined %}
+inherit owner = {{ samba_host_smb_conf.global_inherit_owner }}
+{% endif %}
+{% if samba_host_smb_conf.global_inherit_permissions is defined %}
+inherit permissions = {{ samba_host_smb_conf.global_inherit_permissions }}
+{% endif %}
+{% if samba_host_smb_conf.global_invalid_users is defined %}
+invalid users = {{ samba_host_smb_conf.global_invalid_users }}
+{% endif %}
+{% if samba_host_smb_conf.global_mangled_names is defined %}
+mangled names = {{ samba_host_smb_conf.global_mangled_names }}
+{% endif %}
+{% if samba_host_smb_conf.global_mangling_char is defined %}
+mangling char = {{ samba_host_smb_conf.global_mangling_char }}
+{% endif %}
+{% if samba_host_smb_conf.global_preserve_case is defined %}
+preserve case = {{ samba_host_smb_conf.global_preserve_case }}
+{% endif %}
+{% if samba_host_smb_conf.global_read_list is defined %}
+read list = {{ samba_host_smb_conf.global_read_list }}
+{% endif %}
+{% if samba_host_smb_conf.global_read_only is defined %}
+read only = {{ samba_host_smb_conf.global_read_only }}
+{% endif %}
+{% if samba_host_smb_conf.global_short_preserve_case is defined %}
+short preserve case = {{ samba_host_smb_conf.global_short_preserve_case }}
+{% endif %}
+{% if samba_host_smb_conf.global_strict_allocate is defined %}
+strict allocate = {{ samba_host_smb_conf.global_strict_allocate }}
+{% endif %}
+{% if samba_host_smb_conf.global_valid_users is defined %}
+valid users = {{ samba_host_smb_conf.global_valid_users }}
+{% endif %}
+{% if samba_host_smb_conf.global_veto_files is defined %}
+veto files = {{ samba_host_smb_conf.global_veto_files }}
+{% endif %}
+{% if samba_host_smb_conf.global_writeable is defined %}
+writeable = {{ samba_host_smb_conf.global_writeable }}
+{% endif %}
+{% if samba_host_smb_conf.global_write_list is defined %}
+write list = {{ samba_host_smb_conf.global_write_list }}
+{% endif %}
+
+
+{% if samba_host_shares | length > 0 %}
+{% for share in samba_host_shares %}
+[{{ share.name }}]
+path = /srv/samba/{{ share.name }}
+browseable = {{ share.browseable | default('yes') }}
+{% if share.acl_group_control is defined %}
+acl group control = {{ share.acl_group_control }}
+{% endif %}
+{% if share.acl_map_full_control is defined %}
+acl map full control = {{ share.acl_map_full_control }}
+{% endif %}
+{% if share.allocation_roundup_size is defined %}
+allocation roundup size = {{ share.allocation_roundup_size }}
+{% endif %}
+{% if share.case_sensitive is defined %}
+case sensitive = {{ share.case_sensitive }}
+{% endif %}
+{% if share.comment is defined %}
+comment = {{ share.comment }}
+{% endif %}
+{% if share.create_mask is defined %}
+create mask = {{ share.create_mask }}
+{% endif %}
+{% if share.default_case is defined %}
+default case = {{ share.default_case }}
+{% endif %}
+{% if share.delete_readonly is defined %}
+delete readonly = {{ share.delete_readonly }}
+{% endif %}
+{% if share.delete_veto_files is defined %}
+delete veto files = {{ share.delete_veto_files }}
+{% endif %}
+{% if share.directory_mask is defined %}
+directory mask = {{ share.directory_mask }}
+{% endif %}
+{% if share.dos_filemode is defined %}
+dos filemode = {{ share.dos_filemode }}
+{% endif %}
+{% if share.fake_directory_create_times is defined %}
+fake directory create times = {{ share.fake_directory_create_times }}
+{% endif %}
+{% if share.force_create_mode is defined %}
+force create mode = {{ share.force_create_mode }}
+{% endif %}
+{% if share.force_directory_mode is defined %}
+force directory mode = {{ share.force_directory_mode }}
+{% endif %}
+{% if share.force_group is defined %}
+force group = {{ share.force_group }}
+{% endif %}
+{% if share.force_user is defined %}
+force user = {{ share.force_user }}
+{% endif %}
+{% if share.guest_ok is defined %}
+guest ok = {{ share.guest_ok }}
+{% endif %}
+{% if share.guest_only is defined %}
+guest only = {{ share.guest_only }}
+{% endif %}
+{% if share.hide_dot_files is defined %}
+hide dot files = {{ share.hide_dot_files }}
+{% endif %}
+{% if share.hide_files is defined %}
+hide files = {{ share.hide_files }}
+{% endif %}
+{% if share.hosts_allow is defined %}
+hosts allow = {{ share.hosts_allow }}
+{% endif %}
+{% if share.hosts_deny is defined %}
+hosts deny = {{ share.hosts_deny }}
+{% endif %}
+{% if share.inherit_owner is defined %}
+inherit owner = {{ share.inherit_owner }}
+{% endif %}
+{% if share.inherit_permissions is defined %}
+inherit permissions = {{ share.inherit_permissions }}
+{% endif %}
+{% if share.invalid_users is defined %}
+invalid users = {{ share.invalid_users }}
+{% endif %}
+{% if share.mangled_names is defined %}
+mangled names = {{ share.mangled_names }}
+{% endif %}
+{% if share.mangling_char is defined %}
+mangling char = {{ share.mangling_char }}
+{% endif %}
+{% if share.preserve_case is defined %}
+preserve case = {{ share.preserve_case }}
+{% endif %}
+{% if share.read_list is defined %}
+read list = {{ share.read_list }}
+{% endif %}
+{% if share.read_only is defined %}
+read only = {{ share.read_only }}
+{% endif %}
+{% if share.short_preserve_case is defined %}
+short preserve case = {{ share.short_preserve_case }}
+{% endif %}
+{% if share.strict_allocate is defined %}
+strict allocate = {{ share.strict_allocate }}
+{% endif %}
+{% if share.valid_users is defined %}
+valid users = {{ share.valid_users }}
+{% endif %}
+{% if share.veto_files is defined %}
+veto files = {{ share.veto_files }}
+{% endif %}
+{% if share.writeable is defined %}
+writeable = {{ share.writeable }}
+{% endif %}
+{% if share.write_list is defined %}
+write list = {{ share.write_list }}
+{% endif %}
+
+
+{% endfor %}
+{% endif %}

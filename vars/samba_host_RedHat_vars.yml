@@ -1,0 +1,12 @@
+---
+samba_host_packages:
+  - samba
+  - samba-client
+  - samba-common
+  - libselinux-python
+  - policycoreutils-python
+# Bottom two packages are for setting SELinux context
+
+samba_host_services:
+  - smb
+  - nmb

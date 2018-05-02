@@ -1,0 +1,21 @@
+---
+# Visit this link for information on `smb.conf` parameters.
+# https://www.samba.org/samba/docs/current/man-html/smb.conf.5.html
+samba_host_shares:
+# The bare essential parts needed by the role tasks.
+# Look at `samba_host_shares_parameters.yml` for all the share parameters available in the template.
+#  - name: Public
+#    group: "{{ ansible_user_id }}"
+#    owner: "{{ ansible_user_id }}"
+
+# Look at `samba_host_smb_conf_parameters.yml` for all the share parameters available in the template.
+# Any parameter from samba_host_shares can also be added here globally.
+# Just add `global_` to the front of it.
+# For example, `global_invalid_users: root` is a good one.
+samba_host_smb_conf:
+
+samba_host_users:
+#  - name: lukeskywalker
+#    smb_password: twinsuns
+#  - name: hansolo
+#  - smb_password: scoundrel

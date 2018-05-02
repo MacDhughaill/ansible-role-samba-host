@@ -1,0 +1,36 @@
+---
+# Visit this link for information on `smb.conf` parameters.
+# https://www.samba.org/samba/docs/current/man-html/smb.conf.5.html
+
+# Any parameter from samba_host_shares can also be added here globally.
+# Just add `global_` to the front of it.
+# For example, `global_invalid_users: root` is a good one.
+
+samba_host_smb_conf:
+  auto_services:
+  bind_interfaces_only:
+  client_max_protocol:
+  client_min_protocol:
+  dns_forwarder:
+  dns_proxy:
+  domain_master:
+  guest_account:
+  interfaces:
+  local_master:
+# Set to "Bad User" if not defined.
+  map_to_guest:
+  netbios_aliases:
+# Max length for a NetBIOS name is 15 characters.
+# Set to "{{ ansible_hostname }}" if not defined.
+  netbios_name:
+# Acceptable range is 0-255, with 0 being least priority.
+  os_level:
+  panic_action:
+  preferred_master:
+  remote_announce:
+  remote_browse_sync:
+  server_max_protocol:
+  server_min_protocol:
+  server_string:
+  username_map:
+  workgroup:

@@ -1,0 +1,75 @@
+---
+# Consult defaults/main.yml to learn about the role variables.
+- include_vars: "{{ item }}"
+  with_first_found:
+    - "samba_host_{{ ansible_distribution }}_vars.yml"
+    - "samba_host_{{ ansible_os_family }}_vars.yml"
+
+- block:
+  - name: Install Samba related packages
+    package:
+      name: "{{ item }}"
+      state: present
+    with_items: "{{ samba_host_packages }}"
+
+# `pedbedit` doesn't have an option to change a current user's password.
+# Instead, the user will be deleted then recreated with the correct password.
+  - name: Add Samba passwords
+    include_tasks: samba_host_users.yml
+    with_items: "{{ samba_host_users }}"
+
+  - name: Create root directory for Samba shares
+    file:
+      path: /srv/samba
+      state: directory
+      owner: root
+      group: root
+      setype: samba_share_t
+
+  - name: Set SELinux context for Samba shares directory
+    sefcontext:
+      target: /srv/samba(/.*)?
+      setype: samba_share_t
+      state: present
+      reload: true
+    when: ansible_os_family == "RedHat"
+
+  - name: Create Samba shares directories
+    file:
+      path: "/srv/samba/{{ item.name }}"
+      state: directory
+      owner: "{{ item.owner | default(omit) }}"
+      group: "{{ item.group | default(omit) }}"
+      setype: samba_share_t
+    with_items: "{{ samba_host_shares }}"
+
+  - name: Copy Samba config template
+    template:
+      src: smb.conf.j2
+      dest: /etc/samba/smb.conf
+      backup: true
+      force: true
+      validate: 'testparm --suppress-prompt %s'
+
+  - name: Restart Samba services
+    service:
+      name: "{{ item }}"
+      state: restarted
+      enabled: true
+    with_items: "{{ samba_host_services }}"
+
+  - name: Open Samba ports in firewalld
+    firewalld:
+      service: samba
+      state: enabled
+      immediate: true
+      permanent: true
+    when: ansible_os_family == "RedHat"
+  become: true
+
+  # TODO
+  # Split out firewall?
+  # Add usershares, printers, home directories
+  # "lmhosts" in name resolve order
+  # logging options
+  # "include" share parameter available. Split and tidy smb.conf template?
