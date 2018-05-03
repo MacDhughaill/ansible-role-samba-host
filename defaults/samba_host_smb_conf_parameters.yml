@@ -17,14 +17,10 @@ samba_host_smb_conf:
   guest_account:
   interfaces:
   local_master:
-# Set to "Bad User" if not defined.
-  map_to_guest:
+  map_to_guest: # Set to "Bad User" if not defined.
   netbios_aliases:
-# Max length for a NetBIOS name is 15 characters.
-# Set to "{{ ansible_hostname }}" if not defined.
-  netbios_name:
-# Acceptable range is 0-255, with 0 being least priority.
-  os_level:
+  netbios_name: # Max length is 15 characters. Set to "{{ ansible_hostname }}" if not defined.
+  os_level: # Acceptable range is 0-255, with 0 being least priority.
   panic_action:
   preferred_master:
   remote_announce:

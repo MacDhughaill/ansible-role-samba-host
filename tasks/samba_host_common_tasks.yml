@@ -1,0 +1,33 @@
+---
+- block:
+# `pedbedit` doesn't have an option to change a current user's password.
+# Instead, the user will be deleted then recreated with the correct password.
+  - name: Add Samba passwords
+    include_tasks: samba_host_users.yml
+    with_items: "{{ samba_host_users }}"
+
+  - name: Create root directory for shares
+    file:
+      path: /srv/samba
+      state: directory
+      owner: root
+      group: root
+      setype: samba_share_t
+
+  - name: Create individual share directories
+    file:
+      path: "/srv/samba/{{ item.name }}"
+      state: directory
+      owner: "{{ item.owner | default(omit) }}"
+      group: "{{ item.group | default(omit) }}"
+      setype: samba_share_t
+    with_items: "{{ samba_host_shares }}"
+
+  - name: Copy config template
+    template:
+      src: smb.conf.j2
+      dest: /etc/samba/smb.conf
+      backup: true
+      force: true
+      validate: 'testparm --suppress-prompt %s'
+  become: true

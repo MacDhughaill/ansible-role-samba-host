@@ -1,11 +1,12 @@
 ---
-# Consult defaults/main.yml to learn about the role variables.
-- command: "pdbedit --delete --user={{ item.name | quote }}"
-  register: pdbedit_delete_result
-  failed_when:
-    - pdbedit_delete_result.rc !=0
-    - pdbedit_delete_result.rc !=255
+- block:
+  - command: "pdbedit --delete --user={{ item.name | quote }}"
+    register: pdbedit_delete_result
+    failed_when:
+      - pdbedit_delete_result.rc !=0
+      - pdbedit_delete_result.rc !=255
 
-# That little space indent on the second line belongs there.
-- shell: printf "{{ item.smb_password | quote }}\\n{{ item.smb_password | quote }}" |
-          pdbedit --create --user="{{ item.name | quote }}" --password-from-stdin
+  # That little space indent on the second line belongs there, in case anyone was concerned.
+  - shell: printf "{{ item.smb_password | quote }}\\n{{ item.smb_password | quote }}" |
+            pdbedit --create --user="{{ item.name | quote }}" --password-from-stdin
+  become: true

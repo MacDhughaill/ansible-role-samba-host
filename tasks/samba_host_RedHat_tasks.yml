@@ -1,0 +1,38 @@
+---
+- block:
+  - name: Install packages on CentOS and RHEL
+    yum:
+      name: "{{ samba_host_packages }}"
+      state: present
+      update_cache: true
+    when: ansible_distribution != "Fedora"
+
+  - name: Install packages on Fedora
+    dnf:
+      name: "{{ samba_host_packages }}"
+      state: present
+    when: ansible_distribution == "Fedora"
+
+  - import_tasks: samba_host_common_tasks.yml
+
+  - name: Set SELinux context for shares directory
+    sefcontext:
+      target: /srv/samba(/.*)?
+      setype: samba_share_t
+      state: present
+      reload: true
+
+  - name: Restart services
+    systemd:
+      name: "{{ item }}"
+      state: restarted
+      enabled: true
+    with_items: "{{ samba_host_services }}"
+
+  - name: Open ports in firewalld
+    firewalld:
+      service: samba
+      state: enabled
+      immediate: true
+      permanent: true
+  become: true
