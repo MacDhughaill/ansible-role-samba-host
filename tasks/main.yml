@@ -1,8 +1,8 @@
 ---
-- include_vars: "samba_host_{{ ansible_os_family }}_vars.yml"
+- include_vars: "samba_host_{{ ansible_distribution }}_vars.yml"
 
-- import_tasks: "samba_host_RedHat_tasks.yml"
-  when: ansible_os_family == "RedHat"
+- import_tasks: "samba_host_CentOS_tasks.yml"
+  when: ansible_distribution == "CentOS"
 
   # TODO
   # Add usershares, printers, home directories

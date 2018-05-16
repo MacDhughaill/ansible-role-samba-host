@@ -1,17 +1,10 @@
 ---
 - block:
-  - name: Install packages on CentOS and RHEL
+  - name: Install packages on CentOS
     yum:
       name: "{{ samba_host_packages }}"
       state: present
       update_cache: true
-    when: ansible_distribution != "Fedora"
-
-  - name: Install packages on Fedora
-    dnf:
-      name: "{{ samba_host_packages }}"
-      state: present
-    when: ansible_distribution == "Fedora"
 
   - import_tasks: samba_host_common_tasks.yml
 

@@ -1,2 +1,0 @@
----
-samba_host_os_family: "{{ ansible_os_family }}"
