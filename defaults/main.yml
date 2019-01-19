@@ -1,4 +1,6 @@
 ---
+samba_host_firewall_zones:
+  - system-default
 # Visit this link for information on `smb.conf` parameters.
 # https://www.samba.org/samba/docs/current/man-html/smb.conf.5.html
 #samba_host_shares:

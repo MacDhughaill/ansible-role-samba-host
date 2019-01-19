@@ -28,4 +28,6 @@
       state: enabled
       immediate: true
       permanent: true
+      zone: "{{ item }}"
+    with_items: "{{ samba_host_firewall_zones }}"
   become: true
